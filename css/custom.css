@@ -1,0 +1,56 @@
+/* Fonts */
+
+@font-face {
+  font-family: 'Lato';
+  font-weight: 400;
+  src: url('./fonts/Lato/Lato-Regular.ttf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-weight: 800;
+  src: url('./fonts/Lora/Lora-Bold.ttf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Vollkorn';
+  font-weight: 400;
+  src: url('./fonts/Vollkorn/Vollkorn-Regular.ttf') format('opentype');
+}
+
+h3 {
+  color: #F07154;
+}
+
+h4 {
+  color: #F07154;
+}
+
+.quote {
+  quotes: "\201C""\201D""\2018""\2019";
+}
+
+.quote:before {
+  content: open-quote;
+  display: inline-block;
+  height: 0;
+  line-height: 0;
+  left: -20px;
+  top: 10px;
+  position: relative;
+  color: #F07154;
+  font-size: 3rem;
+  font-family: 'Lora';
+}
+.quote:after {
+  content: close-quote;
+  display: inline-block;
+  height: 0;
+  line-height: 0;
+  left: 20px;
+  top: 20px;
+  position: relative;
+  color: #F07154;
+  font-size: 3rem;
+  font-family: 'Lora';
+}

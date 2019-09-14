@@ -4,6 +4,27 @@ angular.module('app.search', ['app.services', 'app.http'])
 function searchCtrl(storage) {
   this.storage = storage;
   this.ingredients = [];
+
+  // Temporary data for UI testing
+  this.recipes = [
+    {
+      "title": "Beef Stew",
+      "description": "This beef stew has both beef and stew",
+      "ingredients": [
+                        {
+                          "name": "beef",
+                          "owned": false
+                        },
+                        {
+                          "name": "stew",
+                          "owned": true
+                        }
+                     ],
+      "time": "5000",
+      "link": "http://example.com",
+      "image": "https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/1122px-Wikipedia-logo-v2.svg.png"
+    }
+  ];
 }
 
 searchCtrl.prototype.transformChip = function(chip) {
