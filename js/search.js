@@ -6,9 +6,9 @@ function searchCtrl(storage, message, search) {
   this.message = message;
   this.search = search;
   this.ingredients = [];
-
+  this.recipes = [];
   // Temporary data for UI testing
-  this.recipes = [
+  /*this.recipes = [
     {
       "name": "Beef Stew",
       "desc": "This beef stew has both beef and stew",
@@ -43,7 +43,7 @@ function searchCtrl(storage, message, search) {
       "url": "http://example.com",
       "image": "https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/1122px-Wikipedia-logo-v2.svg.png"
     }
-  ];
+  ];*/
 }
 
 searchCtrl.prototype.transformChip = function(chip) {
@@ -69,6 +69,9 @@ searchCtrl.prototype.searchIngredients = function(name) {
 searchCtrl.prototype.searchRecipes = function(ingredients) {
   var self = this;
   this.search.searchRecipes(ingredients).then(function(response) {
+    if (response.data.length >= 16) {
+      response.data = response.data.slice(0, 16);
+    }
     self.setRecipes(response.data);
   }, function(response) {
   //  self.message.toastTime(response.data);
