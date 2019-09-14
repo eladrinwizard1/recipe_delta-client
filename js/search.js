@@ -1,8 +1,10 @@
 angular.module('app.search', ['app.services', 'app.http'])
-  .controller('searchCtrl', ['storage', searchCtrl])
+  .controller('searchCtrl', ['storage', 'message', 'search', searchCtrl])
 
-function searchCtrl(storage) {
+function searchCtrl(storage, message, search) {
   this.storage = storage;
+  this.message = message;
+  this.search = search;
   this.ingredients = [];
 
   // Temporary data for UI testing
@@ -38,6 +40,34 @@ searchCtrl.prototype.transformChip = function(chip) {
 }
 
 searchCtrl.prototype.searchIngredients = function(name) {
-  // Passes a name or partial name query
-  // Returns a list of ingredient objects that are possible matches
+  var self = this;
+  return this.search.getIngredients(name).then(function(response) {
+    return response.data;
+  }, function(response) {
+    self.message.toastTime(response.data);
+    return [];
+  })
+}
+
+searchCtrl.prototype.searchRecipes = function(ingredients) {
+  var self = this;
+  this.search.searchRecipes(ingredients).then(function(response) {
+    self.setRecipes(response.data);
+  }, function(response) {
+    self.message.toastTime(response.data);
+    self.setRecipes([]);
+  })
+}
+
+searchCtrl.prototype.setRecipes = function(recipeIDs) {
+  var self = this;
+  recipes = [];
+  for(recipe in recipeIDs) {
+    recipeData = this.search.getRecipe(recipe).then(function(response) {
+      recipes.push(response.data);
+    }, function(response) {
+      self.message.toastTime(response.data);
+    })
+  }
+  this.recipes = recipes;
 }

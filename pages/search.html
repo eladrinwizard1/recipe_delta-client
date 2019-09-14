@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head></head>
 
 <body layout-fill>
@@ -42,7 +41,7 @@
         </div>
       </md-card-content>
       <md-card-actions layout="row" layout-align="center center">
-        <md-button>Search</md-button>
+        <md-button ng-click="s.searchRecipes(s.ingredients);">Search</md-button>
       </md-card-actions>
     </md-card>
 
@@ -55,21 +54,21 @@
     layout-sm="column"
     layout-xs="column">
       <div>
-      <h3> {{recipe.title}} </h3>
+      <a ng-href="{{recipe.link}}" style="text-decoration:none;">
+        <h3> {{recipe.title}} </h3> </a>
       <p class="quote"> {{recipe.description}} <br> {{recipe.description}} </p>
       <br>
       <div ng-repeat="i in recipe.ingredients" ng-if="i.owned">
+        <md-icon md-svg-src="./img/check.svg"> </md-icon>
         <span> {{i.name}} </span>
       </div>
+      <br>
       <div ng-repeat="i in recipe.ingredients" ng-if="!i.owned">
+        <md-icon md-svg-src="./img/circle.svg"> </md-icon>
         <span style="color:#F07154;"> {{i.name}} </span>
       </div>
       <br>
-<<<<<<< HEAD
       <div> <span> This dish will take {{recipe.time}} minutes to make. </span> </div>
-=======
-      <div> <span> {{recipe.time}} </span> </div>
->>>>>>> ef0a51671d07b3847870a78bb938152cca078f3b
     </div>
     <div>
       <img src="{{recipe.image}}" style="height:20vh; width:20vh;">
@@ -77,5 +76,4 @@
     </md-list>
   </div>
 </body>
-
 </html>
