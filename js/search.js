@@ -10,7 +10,7 @@ function searchCtrl(storage, message, search) {
   // Temporary data for UI testing
   this.recipes = [
     {
-      "title": "Beef Stew",
+      "name": "Beef Stew",
       "description": "This beef stew has both beef and stew",
       "ingredients": [
                         {
@@ -22,8 +22,25 @@ function searchCtrl(storage, message, search) {
                           "owned": true
                         }
                      ],
-      "time": "50",
-      "link": "http://example.com",
+      "time": "50 min",
+      "url": "http://example.com",
+      "image": "https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/1122px-Wikipedia-logo-v2.svg.png"
+    },
+    {
+      "name": "Pork Stew",
+      "description": "This beef stew has both pork and stew",
+      "ingredients": [
+                        {
+                          "name": "pork",
+                          "owned": true
+                        },
+                        {
+                          "name": "stew",
+                          "owned": false
+                        }
+                     ],
+      "time": "50 min",
+      "url": "http://example.com",
       "image": "https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/1122px-Wikipedia-logo-v2.svg.png"
     }
   ];
@@ -64,28 +81,35 @@ searchCtrl.prototype.searchRecipes = function(ingredients) {
 }
 
 searchCtrl.prototype.setRecipes = function(recipeIDs) {
+  searchList = [];
+  for (i = 0; i < this.ingredients.length; i++) {
+    searchList.push(this.ingredients.name);
+  }
+
   var self = this;
-  recipes = [];
+  this.clearRecipes();
   for (i = 0; i < recipeIDs.length; i++) {
     recipeData = this.search.getRecipe(recipeIDs[i]).then(function(response) {
-      recipes.push(response.data);
+      recipe = response.data;
+      newIngredients = [];
+      for (j = 0; j < recipe.ingredients.length; j++) {
+        newIngredients.push({
+          "name": recipe.ingredients[j],
+          "owned": searchList.join(', ').includes(recipe.ingredients[j])
+        })
+      }
+      recipe.ingredients = newIngredients;
+      self.addRecipe(recipe);
     }, function(response) {
       self.message.toastTime(response.data);
     })
   }
-  searchList = [];
-  for (i = 0; i < ingredients.length; i++) {
-    searchList.push(ingredients.name);
-  }
-  for (i = 0; i < recipes.length; i++) {
-    newIngredients = [];
-    for (j = 0; j < recipes[i].ingredients.length; j++) {
-      newIngredients.push({
-        "name": recipes[i].ingredients[j];
-        "owned": searchList.includes(recipes[i].ingredients[j]);
-      })
-    }
-    recipes[i].ingredients = newIngredients;
-  }
-  this.recipes = recipes;
+}
+
+searchCtrl.prototype.clearRecipes = function() {
+  this.recipes = [];
+}
+
+searchCtrl.prototype.addRecipe = function(recipe) {
+  this.recipes.push(recipe);
 }

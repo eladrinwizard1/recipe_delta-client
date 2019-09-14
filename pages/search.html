@@ -46,18 +46,20 @@
     </md-card>
 
     <!-- Search results list -->
-    <md-list style="background:#EDEDED;" ng-repeat="recipe in s.recipes"
+    <md-list ng-repeat="recipe in s.recipes"
     layout="row"
     layout-align="space-around center"
     layout-fill
-    style="width:100%;"
+    style="width:100%;padding-top:10%;padding-bottom:10%;"
     layout-sm="column"
-    layout-xs="column">
-      <div>
-      <a ng-href="{{recipe.link}}" style="text-decoration:none;">
-        <h3> {{recipe.title}} </h3> </a>
+    layout-xs="column"
+    layout-padding>
+      <div layout="column" style="padding-left:5%;" layout-align="center start" flex="70">
+      <a ng-href="{{recipe.url}}" style="text-decoration:none;">
+        <h3> {{recipe.name}} </h3> </a>
       <p class="quote"> {{recipe.description}} <br> {{recipe.description}} </p>
       <br>
+      <div>
       <div ng-repeat="i in recipe.ingredients" ng-if="i.owned">
         <md-icon md-svg-src="./img/check.svg"> </md-icon>
         <span> {{i.name}} </span>
@@ -67,11 +69,12 @@
         <md-icon md-svg-src="./img/circle.svg"> </md-icon>
         <span style="color:#F07154;"> {{i.name}} </span>
       </div>
-      <br>
-      <div> <span> This dish will take {{recipe.time}} minutes to make. </span> </div>
     </div>
-    <div>
-      <img src="{{recipe.image}}" style="height:20vh; width:20vh;">
+      <br>
+      <div> <span> This dish will take {{recipe.time}} to make. </span> </div>
+    </div>
+    <div flex="30">
+      <img src="{{recipe.image}}" class="recipeImage">
     </div>
     </md-list>
   </div>

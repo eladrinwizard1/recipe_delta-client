@@ -1,5 +1,4 @@
 /* Fonts */
-
 @font-face {
   font-family: 'Lato';
   font-weight: 400;
@@ -20,10 +19,21 @@
 
 h3 {
   color: #F07154;
+  font-family: "Lora";
 }
 
 h4 {
   color: #F07154;
+}
+
+md-list {}
+
+md-list:nth-child(odd) {
+  background: #E0E0E0;
+}
+
+md-list:nth-child(even) {
+  background: #EEEEEE;
 }
 
 .quote {
@@ -35,22 +45,41 @@ h4 {
   display: inline-block;
   height: 0;
   line-height: 0;
-  left: -20px;
+  left: 0px;
   top: 10px;
   position: relative;
   color: #F07154;
   font-size: 3rem;
   font-family: 'Lora';
 }
+
 .quote:after {
   content: close-quote;
   display: inline-block;
   height: 0;
   line-height: 0;
-  left: 20px;
+  left: 0px;
   top: 20px;
   position: relative;
   color: #F07154;
   font-size: 3rem;
   font-family: 'Lora';
+}
+
+.recipeImage {
+  object-fit: cover;
+  width: 15vw;
+  height: 15vw;
+}
+
+.start {
+  background-image: url(../img/splash.svg);
+  background-size: cover;
+}
+
+.start .button {
+  color: #FFFFFF;
+  text-transform: none;
+  font-family: "Lora";
+  display: inline-block;
 }
