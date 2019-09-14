@@ -4,19 +4,29 @@
 <head></head>
 
 <body layout-fill>
-  <div layout="column" layout-align="center center" style="width:70%;margin-left:15%;">
+  <div layout="column"
+  layout-align="center center"
+  style="width:70%;margin-left:15%;">
     <div style="height:24px;"> &nbsp; </div>
     <md-card layout-fill>
       <md-card-content>
         <h2>Instructions</h2>
-        <p>Intructions go here</p>
+        <p>Instructions go here</p>
 
         <div layout="row" layout-align="space-between center">
           <!-- Ingredients search options -->
           <div layout="column">
             <h4> Ingredients </h4>
-            <md-chips ng-model="s.ingredients" md-autocomplete-snap md-transform-chip="s.transformChip($chip)">
-              <md-autocomplete md-no-cache flex md-selected-item="s.selectedItem" md-search-text="s.searchText" md-items="ingredient in s.searchIngredients(s.searchText)" md-item-text="ingredient" md-floating-label="Search Ingredients"
+            <md-chips ng-model="s.ingredients"
+            md-autocomplete-snap
+            md-transform-chip="s.transformChip($chip)">
+              <md-autocomplete md-no-cache
+              flex
+              md-selected-item="s.selectedItem"
+              md-search-text="s.searchText"
+              md-items="ingredient in s.searchIngredients(s.searchText)"
+              md-item-text="ingredient"
+              md-floating-label="Search Ingredients"
                 style="margin-bottom:8px">
                 <span md-highlight-text="s.searchText"> {{ingredient}} </span>
               </md-autocomplete>
@@ -37,9 +47,29 @@
     </md-card>
 
     <!-- Search results list -->
-    <md-list ng-repeat="recipe in [1,2,3,4]" layout-fill>
-      <h2>Recipe {{recipe}} Title</h2>
-      <p>Recipe {{recipe}} Description</p>
+    <md-list style="background:#EDEDED;" ng-repeat="recipe in s.recipes"
+    layout="row"
+    layout-align="space-around center"
+    layout-fill
+    style="width:100%;"
+    layout-sm="column"
+    layout-xs="column">
+      <div>
+      <h3> {{recipe.title}} </h3>
+      <p class="quote"> {{recipe.description}} <br> {{recipe.description}} </p>
+      <br>
+      <div ng-repeat="i in recipe.ingredients" ng-if="i.owned">
+        <span> {{i.name}} </span>
+      </div>
+      <div ng-repeat="i in recipe.ingredients" ng-if="!i.owned">
+        <span style="color:#F07154;"> {{i.name}} </span>
+      </div>
+      <br>
+      <div> <span> {{recipe.time}} </span> </div>
+    </div>
+    <div>
+      <img src="{{recipe.image}}" style="height:20vh; width:20vh;">
+    </div>
     </md-list>
   </div>
 </body>
