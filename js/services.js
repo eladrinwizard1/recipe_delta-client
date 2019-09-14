@@ -20,7 +20,7 @@ angular.module('app.services', ['ngMaterial', 'ngSanitize'])
 
   }])
 
-  .service('message', ['$mdToast', function($mdToast) {
+  .service('message', ['$mdToast', '$mdDialog' function($mdToast, $mdDialog) {
       this.toastTime = function(message) {
         $mdToast.show(
           $mdToast.simple()
