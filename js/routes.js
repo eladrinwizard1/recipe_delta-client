@@ -24,4 +24,14 @@ angular.module('app.routes', ['ui.router'])
             }
           }
       })
+
+      .state('future', {
+          url: '/future',
+          views: {
+            "main": {
+              templateUrl: 'pages/future.html',
+              controller: 'futureCtrl as future'
+            }
+          }
+      })
   })
