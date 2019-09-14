@@ -20,7 +20,7 @@ function searchCtrl(storage) {
                           "owned": true
                         }
                      ],
-      "time": "5000",
+      "time": "50",
       "link": "http://example.com",
       "image": "https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/1122px-Wikipedia-logo-v2.svg.png"
     }
@@ -35,4 +35,9 @@ searchCtrl.prototype.transformChip = function(chip) {
     name: chip,
     type: 'new'
   }
+}
+
+searchCtrl.prototype.searchIngredients = function(name) {
+  // Passes a name or partial name query
+  // Returns a list of ingredient objects that are possible matches
 }
