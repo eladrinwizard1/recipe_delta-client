@@ -1,7 +1,7 @@
 angular.module('app.http', ['app.services'])
   .service('search', ['storage', '$http', search])
 
-var api = "";
+var api = "http://206.189.253.118";
 
 function search(storage, $http) {
   this.storage = storage;
@@ -12,10 +12,10 @@ search.prototype.searchRecipes = function(ingredients) {
   // Passes a list of ingredient IDs to a POST
   // Returns a list of recipe IDs
   var params = {
-    "ingredients": ingredients
+    "ingredients": ["lettuce","tomato"]
   }
 
-  return this.http.post(api + "/search", ingredients);
+  return this.http.post(api + "/search", params);
 }
 
 search.prototype.getRecipe = function(id) {

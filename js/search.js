@@ -51,11 +51,11 @@ searchCtrl.prototype.searchIngredients = function(name) {
 
 searchCtrl.prototype.searchRecipes = function(ingredients) {
   var self = this;
-  idList = [];
-  for (ingredient in ingredients) {
-    idList.push(ingredient["id"]);
+  searchList = [];
+  for (i = 0; i < ingredients.length; i++) {
+    searchList.push(ingredients.name);
   }
-  this.search.searchRecipes(idList).then(function(response) {
+  this.search.searchRecipes(searchList).then(function(response) {
     self.setRecipes(response.data);
   }, function(response) {
     self.message.toastTime(response.data);
@@ -66,12 +66,26 @@ searchCtrl.prototype.searchRecipes = function(ingredients) {
 searchCtrl.prototype.setRecipes = function(recipeIDs) {
   var self = this;
   recipes = [];
-  for (recipe in recipeIDs) {
-    recipeData = this.search.getRecipe(recipe).then(function(response) {
+  for (i = 0; i < recipeIDs.length; i++) {
+    recipeData = this.search.getRecipe(recipeIDs[i]).then(function(response) {
       recipes.push(response.data);
     }, function(response) {
       self.message.toastTime(response.data);
     })
+  }
+  searchList = [];
+  for (i = 0; i < ingredients.length; i++) {
+    searchList.push(ingredients.name);
+  }
+  for (i = 0; i < recipes.length; i++) {
+    newIngredients = [];
+    for (j = 0; j < recipes[i].ingredients.length; j++) {
+      newIngredients.push({
+        "name": recipes[i].ingredients[j];
+        "owned": searchList.includes(recipes[i].ingredients[j]);
+      })
+    }
+    recipes[i].ingredients = newIngredients;
   }
   this.recipes = recipes;
 }
