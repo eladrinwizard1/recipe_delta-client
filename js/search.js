@@ -51,7 +51,11 @@ searchCtrl.prototype.searchIngredients = function(name) {
 
 searchCtrl.prototype.searchRecipes = function(ingredients) {
   var self = this;
-  this.search.searchRecipes(ingredients).then(function(response) {
+  idList = [];
+  for (ingredient in ingredients) {
+    idList.push(ingredient["id"]);
+  }
+  this.search.searchRecipes(idList).then(function(response) {
     self.setRecipes(response.data);
   }, function(response) {
     self.message.toastTime(response.data);
@@ -62,7 +66,7 @@ searchCtrl.prototype.searchRecipes = function(ingredients) {
 searchCtrl.prototype.setRecipes = function(recipeIDs) {
   var self = this;
   recipes = [];
-  for(recipe in recipeIDs) {
+  for (recipe in recipeIDs) {
     recipeData = this.search.getRecipe(recipe).then(function(response) {
       recipes.push(response.data);
     }, function(response) {

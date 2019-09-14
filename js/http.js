@@ -15,7 +15,7 @@ search.prototype.searchRecipes = function(ingredients) {
     "ingredients": ingredients
   }
 
-  return this.http.post(api + "/search/", ingredients);
+  return this.http.post(api + "/search", ingredients);
 }
 
 search.prototype.getRecipe = function(id) {
@@ -27,5 +27,5 @@ search.prototype.getRecipe = function(id) {
 search.prototype.getIngredients = function(query) {
   // Passes a partial or full ingredient name
   // Returns a list of ingredient objects that match the query
-  return this.http.get(api + "/ingredients/" + query);
+  return this.http.get(api + "/ingredient/" + query);
 }
