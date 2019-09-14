@@ -7,6 +7,7 @@ function searchCtrl(storage, message, search) {
   this.search = search;
   this.ingredients = [];
   this.recipes = [];
+  this.maxTime = 300;
   // Temporary data for UI testing
   /*this.recipes = [
     {
@@ -61,7 +62,7 @@ searchCtrl.prototype.searchIngredients = function(name) {
   return this.search.getIngredients(name).then(function(response) {
     return response.data;
   }, function(response) {
-  //  self.message.toastTime(response.data);
+    //  self.message.toastTime(response.data);
     return [];
   })
 }
@@ -69,12 +70,19 @@ searchCtrl.prototype.searchIngredients = function(name) {
 searchCtrl.prototype.searchRecipes = function(ingredients) {
   var self = this;
   this.search.searchRecipes(ingredients).then(function(response) {
-    if (response.data.length >= 16) {
-      response.data = response.data.slice(0, 16);
+    timeValidated = [];
+    for (i = 0; i < response.data.length; i++) {
+      console.log(self.maxTime);
+      if (computeTime(response.data[i].time) < self.maxTime) {
+        timeValidated.push(response.data[i]);
+      }
     }
-    self.setRecipes(response.data);
+    if (timeValidated >= 16) {
+      timeValidated = timeValidated.slice(0, 16);
+    }
+    self.setRecipes(timeValidated);
   }, function(response) {
-  //  self.message.toastTime(response.data);
+    //  self.message.toastTime(response.data);
     self.setRecipes([]);
   })
 }
@@ -117,4 +125,21 @@ searchCtrl.prototype.checkIngredient = function(query) {
     }
   }
   return false;
+}
+
+//TODO: Move this to a service
+function computeTime(timeString) {
+  // Returns an int timestamp in minutes from a string
+  try {
+    if (timeString.includes("h")) {
+      hours = parseInt(timeString.substring(0, timeString.indexOf("h")), 10);
+      minutes = parseInt(timeString.substring(timeString.indexOf("h") + 1,
+        timeString.indexOf("m")), 10);
+      return 60 * hours + minutes;
+    } else {
+      return parseInt(timeString.substring(0, timeString.indexOf("m")), 10);
+    }
+  } catch {
+    return 0;
+  }
 }

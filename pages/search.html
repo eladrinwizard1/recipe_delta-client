@@ -25,7 +25,13 @@
           </div>
 
           <!-- Other search options -->
-          <div></div>
+          <div>
+            <h4> Maximum Time (minutes) </h4>
+            <md-slider md-discrete
+            ng-model="s.maxTime"
+            step="15" min="15" max="300">
+            </md-slider>
+          </div>
 
         </div>
       </md-card-content>
