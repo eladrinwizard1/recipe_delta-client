@@ -1,7 +1,7 @@
 angular.module('app.routes', ['ui.router'])
   .config(function($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.otherwise('/search');
+    $urlRouterProvider.otherwise('/splash');
 
     $stateProvider
 
@@ -10,7 +10,17 @@ angular.module('app.routes', ['ui.router'])
           views: {
             "main": {
               templateUrl: 'pages/search.html',
-              controller: 'searchCtrl'
+              controller: 'searchCtrl as s'
+            }
+          }
+      })
+
+      .state('splash', {
+          url: '/splash',
+          views: {
+            "main": {
+              templateUrl: 'pages/splash.html',
+              controller: 'splashCtrl as splash'
             }
           }
       })

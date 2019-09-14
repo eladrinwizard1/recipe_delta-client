@@ -1,45 +1,47 @@
 <!DOCTYPE html>
 <html>
+
 <head></head>
+
 <body layout-fill>
-  <md-card>
-   <md-card-content>
-     <h2>Instructions</h2>
-     <p>Intructions go here</p>
+  <div layout="column" layout-align="center center" style="width:70%;margin-left:15%;">
+    <div style="height:24px;"> &nbsp; </div>
+    <md-card layout-fill>
+      <md-card-content>
+        <h2>Instructions</h2>
+        <p>Intructions go here</p>
 
-     <div layout="row" layout-align="space-between center">
-       <!-- Ingredients search options -->
-       <div layout="column">
-         <h4> Ingredients </h4>
-         <md-chips
-          ng-model="s.ingredients"
-          md-autocomplete-snap
-          md-transform-chip="s.transformChip($chip)">
-             <md-autocomplete
-                md-no-cache
-                flex
-                md-selected-item="s.selectedItem"
-                md-search-text="s.searchText"
-                md-items="ingredient in s.searchIngredients(s.searchText)"
-                md-item-text="ingredient"
-                md-floating-label="Search Ingredients"
+        <div layout="row" layout-align="space-between center">
+          <!-- Ingredients search options -->
+          <div layout="column">
+            <h4> Ingredients </h4>
+            <md-chips ng-model="s.ingredients" md-autocomplete-snap md-transform-chip="s.transformChip($chip)">
+              <md-autocomplete md-no-cache flex md-selected-item="s.selectedItem" md-search-text="s.searchText" md-items="ingredient in s.searchIngredients(s.searchText)" md-item-text="ingredient" md-floating-label="Search Ingredients"
                 style="margin-bottom:8px">
-                 <span md-highlight-text="s.searchText"> {{ingredient}} </span>
-             </md-autocomplete>
-             <md-chip-template>
-                 <span> {{$chip}} </span>
-             </md-chip-template>
-         </md-chips>
-       </div>
+                <span md-highlight-text="s.searchText"> {{ingredient}} </span>
+              </md-autocomplete>
+              <md-chip-template>
+                <span> {{$chip}} </span>
+              </md-chip-template>
+            </md-chips>
+          </div>
 
-       <!-- Other search options -->
-       <div></div>
+          <!-- Other search options -->
+          <div></div>
 
-     </div>
-   </md-card-content>
-   <md-card-actions layout="row" layout-align="center center">
-     <md-button>Search</md-button>
-   </md-card-actions>
-  </md-card>
+        </div>
+      </md-card-content>
+      <md-card-actions layout="row" layout-align="center center">
+        <md-button>Search</md-button>
+      </md-card-actions>
+    </md-card>
+
+    <!-- Search results list -->
+    <md-list ng-repeat="recipe in [1,2,3,4]" layout-fill>
+      <h2>Recipe {{recipe}} Title</h2>
+      <p>Recipe {{recipe}} Description</p>
+    </md-list>
+  </div>
 </body>
+
 </html>
