@@ -11,7 +11,7 @@ function searchCtrl(storage, message, search) {
   this.recipes = [
     {
       "name": "Beef Stew",
-      "description": "This beef stew has both beef and stew",
+      "desc": "This beef stew has both beef and stew",
       "ingredients": [
                         {
                           "name": "beef",
@@ -28,7 +28,7 @@ function searchCtrl(storage, message, search) {
     },
     {
       "name": "Pork Stew",
-      "description": "This beef stew has both pork and stew",
+      "desc": "This beef stew has both pork and stew",
       "ingredients": [
                         {
                           "name": "pork",
@@ -61,31 +61,23 @@ searchCtrl.prototype.searchIngredients = function(name) {
   return this.search.getIngredients(name).then(function(response) {
     return response.data;
   }, function(response) {
-    self.message.toastTime(response.data);
+  //  self.message.toastTime(response.data);
     return [];
   })
 }
 
 searchCtrl.prototype.searchRecipes = function(ingredients) {
   var self = this;
-  searchList = [];
-  for (i = 0; i < ingredients.length; i++) {
-    searchList.push(ingredients.name);
-  }
-  this.search.searchRecipes(searchList).then(function(response) {
+  this.search.searchRecipes(ingredients).then(function(response) {
     self.setRecipes(response.data);
   }, function(response) {
-    self.message.toastTime(response.data);
+  //  self.message.toastTime(response.data);
     self.setRecipes([]);
   })
 }
 
 searchCtrl.prototype.setRecipes = function(recipeIDs) {
   searchList = [];
-  for (i = 0; i < this.ingredients.length; i++) {
-    searchList.push(this.ingredients.name);
-  }
-
   var self = this;
   this.clearRecipes();
   for (i = 0; i < recipeIDs.length; i++) {
@@ -95,13 +87,13 @@ searchCtrl.prototype.setRecipes = function(recipeIDs) {
       for (j = 0; j < recipe.ingredients.length; j++) {
         newIngredients.push({
           "name": recipe.ingredients[j],
-          "owned": searchList.join(', ').includes(recipe.ingredients[j])
+          "owned": self.checkIngredient(recipe.ingredients[j])
         })
       }
       recipe.ingredients = newIngredients;
       self.addRecipe(recipe);
     }, function(response) {
-      self.message.toastTime(response.data);
+      //self.message.toastTime(response.data);
     })
   }
 }
@@ -112,4 +104,14 @@ searchCtrl.prototype.clearRecipes = function() {
 
 searchCtrl.prototype.addRecipe = function(recipe) {
   this.recipes.push(recipe);
+}
+
+searchCtrl.prototype.checkIngredient = function(query) {
+  ingredients = this.ingredients;
+  for (i = 0; i < ingredients.length; i++) {
+    if (query.includes(ingredients[i])) {
+      return true;
+    }
+  }
+  return false;
 }

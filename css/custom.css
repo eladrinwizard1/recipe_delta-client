@@ -20,6 +20,7 @@
 h3 {
   color: #F07154;
   font-family: "Lora";
+  font-size: 2.5em;
 }
 
 h4 {
@@ -75,11 +76,23 @@ md-list:nth-child(even) {
 .start {
   background-image: url(../img/splash.svg);
   background-size: cover;
+  position: relative;
+  width: 100%;
+  text-align: center;
 }
 
 .start .button {
   color: #FFFFFF;
   text-transform: none;
-  font-family: "Lora";
+  font-family: "Vollkorn";
+  font-weight: 400;
   display: inline-block;
+  position: absolute;
+  top: 35%;
+  left: 37%;
+  font-size: 4em;
+  width: 26%;
+  height: 14%;
+  background-color: #E0723E;
+  border-radius: 20px;
 }

@@ -12,7 +12,7 @@ search.prototype.searchRecipes = function(ingredients) {
   // Passes a list of ingredient IDs to a POST
   // Returns a list of recipe IDs
   var params = {
-    "ingredients": ["salade","tomate"]
+    "ingredients": ingredients
   }
 
   return this.http.post(api + "/search", params);

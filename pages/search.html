@@ -10,28 +10,17 @@
     <md-card layout-fill>
       <md-card-content>
         <h2>Instructions</h2>
-        <p>Instructions go here</p>
+        <p> Enter the ingredients you have available, then click
+          the button to find recipes that match! Click on the recipe name for
+          the complete recipe. </p>
 
         <div layout="row" layout-align="space-between center">
           <!-- Ingredients search options -->
           <div layout="column">
             <h4> Ingredients </h4>
             <md-chips ng-model="s.ingredients"
-            md-autocomplete-snap
-            md-transform-chip="s.transformChip($chip)">
-              <md-autocomplete md-no-cache
-              flex
-              md-selected-item="s.selectedItem"
-              md-search-text="s.searchText"
-              md-items="ingredient in s.searchIngredients(s.searchText)"
-              md-item-text="ingredient"
-              md-floating-label="Search Ingredients"
-                style="margin-bottom:8px">
-                <span md-highlight-text="s.searchText"> {{ingredient}} </span>
-              </md-autocomplete>
-              <md-chip-template>
-                <span> {{$chip}} </span>
-              </md-chip-template>
+              placeholder="Add ingredients"
+              md-max-chips="5">
             </md-chips>
           </div>
 
@@ -54,26 +43,26 @@
     layout-sm="column"
     layout-xs="column"
     layout-padding>
-      <div layout="column" style="padding-left:5%;" layout-align="center start" flex="70">
+      <div layout="column" style="padding-left:5%;" layout-align="center start" flex="60">
       <a ng-href="{{recipe.url}}" style="text-decoration:none;">
         <h3> {{recipe.name}} </h3> </a>
-      <p class="quote"> {{recipe.description}} <br> {{recipe.description}} </p>
+      <p class="quote" ng-if="recipe.desc.length > 0"> {{recipe.desc}} </p>
       <br>
       <div>
       <div ng-repeat="i in recipe.ingredients" ng-if="i.owned">
-        <md-icon md-svg-src="./img/check.svg"> </md-icon>
+        <md-icon md-svg-src="./img/check.svg" aria-label="checked"></md-icon>
         <span> {{i.name}} </span>
       </div>
       <br>
       <div ng-repeat="i in recipe.ingredients" ng-if="!i.owned">
-        <md-icon md-svg-src="./img/circle.svg"> </md-icon>
+        <md-icon md-svg-src="./img/circle.svg" aria-label="unchecked"></md-icon>
         <span style="color:#F07154;"> {{i.name}} </span>
       </div>
     </div>
       <br>
       <div> <span> This dish will take {{recipe.time}} to make. </span> </div>
     </div>
-    <div flex="30">
+    <div flex="40">
       <img src="{{recipe.image}}" class="recipeImage">
     </div>
     </md-list>
